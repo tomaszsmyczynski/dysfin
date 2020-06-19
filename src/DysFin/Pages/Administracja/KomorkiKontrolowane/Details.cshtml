@@ -1,0 +1,25 @@
+﻿@page
+@model DysFin.Pages.Administracja.KomorkiKontrolowane.DetailsModel
+
+<div>
+    <h4>Komórka kontrolowana</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Komorka.Symbol)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Komorka.Symbol)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Komorka.Nazwa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Komorka.Nazwa)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Komorka.Id">Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

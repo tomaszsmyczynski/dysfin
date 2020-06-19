@@ -1,0 +1,292 @@
+﻿@model DysFin.Models.Kontrola
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.Numer" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.Numer)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.TypKontroli" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.TypKontroli.Nazwa)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.JednostkaKontrolowana" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                @if (Model.JednostkaKontrolowana == null)
+                {
+                    <p class="desc">Urząd Miasta</p>
+                }
+                else
+                {
+                    <p class="desc">@Html.DisplayFor(model => model.JednostkaKontrolowana.Nazwa)</p>
+                }
+            </div>
+        </div>
+        @if (Model.TypKontroliId == 1)
+        {
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <label asp-for="@Model.KomorkaWiodaca" class="label-lg"></label>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <p class="desc">@Html.DisplayFor(model => model.KomorkaWiodaca.Nazwa)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <label asp-for="@Model.ZnakWiodacy" class="label-lg"></label>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <p class="desc">@Html.DisplayFor(model => model.ZnakWiodacy)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <label asp-for="@Model.KomorkiUczestniczace" class="label-lg"></label>
+                </div>
+                <ol class="col-sm-8 col-md-8 col-lg-8">
+                    @foreach (var kontrolaKomorki in Model.KomorkiUczestniczace)
+                    {
+                        <li>@Html.Raw(kontrolaKomorki.Komorka.Nazwa)</li>
+                    }
+                </ol>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.JednostkaKontrolujaca" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.JednostkaKontrolujaca.Nazwa)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.Kontroler" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.Kontroler)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.DataUpowaznienia" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.DataUpowaznienia)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.NumerUpowaznienia" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.NumerUpowaznienia)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.Temat" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.Temat)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.Procesy" class="label-lg"></label>
+            </div>
+            <ol class="col-sm-8 col-md-8 col-lg-8">
+                @foreach (var kontrolaProces in Model.Procesy)
+                {
+                    <li>@Html.Raw(kontrolaProces.Proces.Nazwa)</li>
+                }
+            </ol>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.DataWpisu" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.DataWpisu)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.DataRozpoczecia" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.DataRozpoczecia)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.DataZakonczenia" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.DataZakonczenia)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.OkresOd" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.OkresOd)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.OkresDo" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.OkresDo)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label class="label-lg">Dotyczy</label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="checkbox-inline">
+                    <label>
+                        @Html.DisplayFor(model => model.SprawyKadrowe)
+                        @Html.DisplayNameFor(model => model.SprawyKadrowe)
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="checkbox-inline">
+                    <label>
+                        @Html.DisplayFor(model => model.FunduszeUE)
+                        @Html.DisplayNameFor(model => model.FunduszeUE)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h4>Uwagi</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <label asp-for="@Model.Uwagi" class="label-lg"></label>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <p class="desc">@Html.DisplayFor(model => model.Uwagi)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-section">
+    <h4>@Html.DisplayNameFor(model => model.Zalaczniki)</h4>
+    <hr />
+
+    <div class="table-responsive">
+        <table class="table table-style-2">
+            <thead>
+                <tr>
+                    <th>
+                        Link
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Zalaczniki.ElementAt(0).Nazwa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Zalaczniki.ElementAt(0).Opis)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Zalaczniki.ElementAt(0).Data)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Zalaczniki.Count; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        <tr>
+                            <td><a href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Nazwa)</td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Opis)</td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Data)</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="tr-odd">
+                            <td><a href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Nazwa)</td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Opis)</td>
+                            <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Data)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-section">
+    <h4>@Html.DisplayNameFor(model => model.Nieprawidlowosci)</h4>
+    <hr />
+
+    <div class="table-responsive">
+        <table class="table table-style-2">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nieprawidlowosci.ElementAt(0).Opis)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nieprawidlowosci.ElementAt(0).OpisPlanowanychDzialan)
+                    </th>
+                    <th style="min-width: 120px;">
+                        @Html.DisplayNameFor(model => model.Nieprawidlowosci.ElementAt(0).PlanowanaData)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nieprawidlowosci.ElementAt(0).OpisZrealizowanychDzialan)
+                    </th>
+                    <th style="min-width: 120px;">
+                        @Html.DisplayNameFor(model => model.Nieprawidlowosci.ElementAt(0).DataZakonczeniaDzialan)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Nieprawidlowosci)
+                {
+                    <tr class=@(Model.Nieprawidlowosci.ToList().IndexOf(item) % 2 == 0? "" : "tr-odd")>
+                        <td>@item.Opis</td>
+                        <td>@item.OpisPlanowanychDzialan</td>
+                        <td>@item.PlanowanaData.ToShortDateString()</td>
+                        <td>@item.OpisZrealizowanychDzialan</td>
+                        @if (item.DataZakonczeniaDzialan.HasValue)
+                        {
+                            <td>@item.DataZakonczeniaDzialan.Value.ToShortDateString()</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

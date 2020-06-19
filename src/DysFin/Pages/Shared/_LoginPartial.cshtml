@@ -1,0 +1,34 @@
+﻿@using System.Security.Principal
+
+<div class="h2-dropdown">
+    @if (User.Identity.IsAuthenticated)
+    {
+        char i = User.Claims.FirstOrDefault(u => u.Type.EndsWith("givenname")).Value.ElementAt(0);
+        char n = User.Claims.FirstOrDefault(u => u.Type.EndsWith("surname")).Value.ElementAt(0);
+        <div class="h2d-toggle">
+            <div class="h2d-thumb">
+                @string.Concat(i, " ", n)
+            </div>
+            Użytkownik: @User.Identity.Name
+        </div>
+        <ul class="h2d-more list-unstyled">
+            <li>
+                <div class="user-excerpt">
+                    <div class="user-thumb">
+                        @string.Concat(i, " ", n)
+                    </div>
+                    <h5 class="text-uppercase">@User.Identity.Name</h5>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/")" method="post">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Wyloguj</button>
+                    </form>
+                </div>
+            </li>
+            <!-- <li><a href="#">Lorem ipsum</a></li> -->
+        </ul>
+
+    }
+    else
+    {
+        <a class="btn text-uppercase pull-right" asp-area="" asp-page="/Account/Login">Zaloguj</a>
+    }
+</div>

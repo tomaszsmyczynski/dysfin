@@ -1,0 +1,309 @@
+﻿@page
+@model DysFin.Pages.Kontrole.CreateModel
+
+@{
+    ViewData["Title"] = "Kontrola zewnętrzna - nowa";
+}
+<div class="page-buttons">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 page-content">
+            <div class="box-section">
+                <h3 class="bs-header">Dane</h3>
+
+                <form method="post">
+                    <div class="bs-content">
+                        <div class="form-section">
+                            <div class="row">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-md-8">
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.TypKontroli" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select asp-for="Kontrola.TypKontroliId" class="text-input input-long" asp-items="ViewBag.TypKontroliId"></select>
+                                            <span asp-validation-for="Kontrola.TypKontroliId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="jednostka" id="jednostka">
+                                        <div class="form-row row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <label asp-for="Kontrola.JednostkaKontrolowana" class="input-label"></label>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                                <select asp-for="Kontrola.JednostkaKontrolowanaId" class="text-input input-long" asp-items="ViewBag.JednostkaKontrolowanaId"></select>
+                                                <span asp-validation-for="Kontrola.JednostkaKontrolowanaId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Kontrola w Urzedzie -->
+                                    <div class="urzad" id="urzad">
+                                        <div class="form-row row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <label asp-for="Kontrola.KomorkaWiodaca" class="input-label"></label>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                                <select asp-for="Kontrola.KomorkaWiodacaId" class="text-input input-long" asp-items="ViewBag.KomorkaWiodacaId"></select>
+                                                <span asp-validation-for="Kontrola.KomorkaWiodacaId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <label asp-for="Kontrola.ZnakWiodacy" class="input-label"></label>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                                <input asp-for="Kontrola.ZnakWiodacy" class="text-input input-long" />
+                                                <span asp-validation-for="Kontrola.ZnakWiodacy" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <label asp-for="Kontrola.KomorkiUczestniczace" class="input-label"></label>
+                                                <button class="btn btn-primary" type="button" id="AddKomorka">Dodaj kolejną komórkę</button>
+                                                <button disabled class="btn btn-primary" type="button" id="RemoveKomorka">Usuń ostatnią komórkę</button>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                                <table id="Komorki" class="table table-style-2">
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                                <span asp-validation-for="Kontrola.KomorkiUczestniczace" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.JednostkaKontrolujaca" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select asp-for="Kontrola.JednostkaKontrolujacaId" class="text-input input-long" asp-items="ViewBag.JednostkaKontrolujacaId"></select>
+                                            <span asp-validation-for="Kontrola.JednostkaKontrolujacaId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.Kontroler" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Kontrola.Kontroler" class="text-input"></textarea>
+                                            <span asp-validation-for="Kontrola.Kontroler" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.DataUpowaznienia" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Kontrola.DataUpowaznienia" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                            <span asp-validation-for="Kontrola.DataUpowaznienia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.NumerUpowaznienia" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input asp-for="Kontrola.NumerUpowaznienia" class="text-input input-long" />
+                                            <span asp-validation-for="Kontrola.NumerUpowaznienia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.Temat" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Kontrola.Temat" class="text-input"></textarea>
+                                            <span asp-validation-for="Kontrola.Temat" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div id="kontrolaProcesy" class="form-row row urzad">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.Procesy" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select multiple asp-for="Kontrola.Procesy" asp-items="ViewBag.ProcesId" class="text-input input-lg"></select>
+                                            <span asp-validation-for="Kontrola.Procesy" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.DataRozpoczecia" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Kontrola.DataRozpoczecia" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                            <span asp-validation-for="Kontrola.DataRozpoczecia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.DataZakonczenia" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Kontrola.DataZakonczenia" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                            <span asp-validation-for="Kontrola.DataZakonczenia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.OkresOd" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Kontrola.OkresOd" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                            <span asp-validation-for="Kontrola.OkresOd" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.OkresDo" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Kontrola.OkresDo" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                            <span asp-validation-for="Kontrola.OkresDo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label class="input-label text-right">Dotyczy</label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8 urzad" id="sprawyKadrowe">
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input asp-for="Kontrola.SprawyKadrowe" />
+                                                    @Html.DisplayNameFor(model => model.Kontrola.SprawyKadrowe)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input asp-for="Kontrola.FunduszeUE" />
+                                                    @Html.DisplayNameFor(model => model.Kontrola.FunduszeUE)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.Status" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select asp-for="Kontrola.StatusId" asp-items="ViewBag.StatusId" class="text-input input-xs"></select>
+                                            <span asp-validation-for="Kontrola.StatusId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- .form-section -->
+
+                        <div class="form-section">
+                            <h4>Uwagi</h4>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Kontrola.Uwagi" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Kontrola.Uwagi" class="text-input"></textarea>
+                                            <span asp-validation-for="Kontrola.Uwagi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bs-footer">
+                        <div class="form-row">
+                            <button class="btn btn-default pull-right" type="submit">Dodaj</button>
+                            <a asp-page="./Index" class="pull-right">Powrót do listy</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    window.onload = function () {
+        if ($('#Kontrola_TypKontroliId').val() == 1) {
+            $('#Kontrola_JednostkaKontrolowanaId').replaceWith('<label id="um" class="text-input">Urząd Miasta</label>');
+        }
+    };
+    $('#Kontrola_TypKontroliId').on('change', function () {
+        if ($('#Kontrola_TypKontroliId').val() == 1) {
+            $('#urzad').toggleClass("urzad");
+            $('#kontrolaProcesy').toggleClass("urzad");
+            $('#sprawyKadrowe').toggleClass("urzad");
+            $('#Kontrola_JednostkaKontrolowanaId').replaceWith('<label id="um" class="text-input">Urząd Miasta</label>');
+            if ($('#jednostka').css("display") == "none") {
+                $('#jednostka').toggleClass("jednostka");
+            }
+        }
+        else if ($('#Kontrola_TypKontroliId').val() == 2) {
+            if ($('#urzad').css("display") != "none") {
+                $('#urzad').toggleClass("urzad");
+                $('#kontrolaProcesy').toggleClass("urzad");
+                $('#sprawyKadrowe').toggleClass("urzad");
+                $('#um').replaceWith('<select class="text-input input-long valid json" id="Kontrola_JednostkaKontrolowanaId" name="Kontrola.JednostkaKontrolowanaId" aria-invalid="false"></select>');
+                $.ajax({
+                    url: "/Kontrole/Create?handler=Jednostki",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: JSON,
+                    success: function (result) {
+                        $(result).each(function () {
+                            $(".json").append($("<option></option>").val(this.id).html(this.nazwa));
+                        });
+                    },
+                    error: function (data) { }
+                });
+            }
+            else {
+                $('#jednostka').toggleClass("jednostka");
+            }
+        }
+        else {
+            if ($('#urzad').css("display") != "none") {
+                $('#urzad').toggleClass("urzad");
+                $('#kontrolaProcesy').toggleClass("urzad");
+                $('#sprawyKadrowe').toggleClass("urzad");
+            }
+            if ($('#jednostka').css("display") != "none") {
+                $('#jednostka').toggleClass("jednostka");
+            }
+        }
+    });
+
+    $(function () {
+        if ($('#Kontrola_TypKontroliId').val() == 1) {
+            $('#urzad').toggleClass("urzad");
+            $('#kontrolaProcesy').toggleClass("urzad");
+            $('#sprawyKadrowe').toggleClass("urzad");
+            $('#jednostka').toggleClass("jednostka");
+        }
+        if ($('#Kontrola_TypKontroliId').val() == 2) {
+            $('#jednostka').toggleClass("jednostka");
+        }
+    });
+</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

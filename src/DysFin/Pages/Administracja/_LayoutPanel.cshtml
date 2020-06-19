@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RKZ</title>
+    <link rel="stylesheet" href="~/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/queries.css" />
+
+    <link rel="shortcut icon" href="~/img/page-icons/16.png">
+    <link rel="apple-touch-icon" href="~/img/page-icons/57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/img/page-icons/72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/img/page-icons/114.png">
+</head>
+<body class="body-gray body-header-2 theme-color-3">
+    <div id="wrap">
+        <header class="header-2">
+            <div class="h2-top">
+                <!-- style="background-image: url();" if needed -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="h2-logo" href="#">
+                                <img class="img-responsive" src="~/img/logo-2.png" alt="" style="height: 49px" />
+                            </a>
+                            <h1 class="page-title">
+                                Rejestr kontroli zewnętrznych
+                            </h1>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+            <div class="h2-menu">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="h2m-menu list-unstyled">
+                                <li class="@(ViewContext.RouteData.Values["page"].ToString() =="/Index" ? "active" : "")">
+                                    <a asp-area="" asp-page="/Index">Strona startowa</a>
+                                </li>
+                                <li class="@(ViewContext.RouteData.Values["page"].ToString().Contains("Kontrole") ? "active" : "")">
+                                    <a asp-area="" asp-page="/Kontrole/Index">Rejestr</a>
+                                </li>
+                                @{var role = User.Claims.FirstOrDefault(u => u.Type.EndsWith("role")).Value; }
+                                @if (role == "2")
+                                {
+                                    <li class="@(ViewContext.RouteData.Values["page"].ToString().Contains("Administracja") ? "active" : "")">
+                                        <a asp-area="" asp-page="/Administracja/Panel">Administracja</a>
+                                    </li>
+                                }
+                                @*<li>
+                                        <a asp-area="" asp-page="/Privacy">Polityka prywatności</a>
+                                    </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 page-content">
+                    <div class="tabs-menu">
+                        <div class="tabs-inside">
+                            <ul class="tabs list-unstyled">
+                                <li>
+                                    <a class="@(ViewContext.RouteData.Values["page"].ToString().Contains("Panel") ? "active" : "")" asp-page="/Administracja/Panel">Panel</a>
+                                </li>
+                                <li>
+                                    <a class="@(ViewContext.RouteData.Values["page"].ToString().Contains("Uzytkownicy") ? "active" : "")" asp-page="/Administracja/Uzytkownicy/Index">Użytkownicy</a>
+                                </li>
+                                <li>
+                                    <a class="@(ViewContext.RouteData.Values["page"].ToString().Contains("JednostkiKontrolowane") ? "active" : "")" asp-page="/Administracja/JednostkiKontrolowane/Index">Jednostki kontrolowane</a>
+                                </li>
+                                <li>
+                                    <a class="@(ViewContext.RouteData.Values["page"].ToString().Contains("JednostkiKontrolujace") ? "active" : "")" asp-page="/Administracja/JednostkiKontrolujace/Index">Jednostki kontrolujące</a>
+                                </li>
+                                <li>
+                                    <a class="@(ViewContext.RouteData.Values["page"].ToString().Contains("KomorkiKontrolowane") ? "active" : "")" asp-page="/Administracja/KomorkiKontrolowane/Index">Komórki kontrolowane</a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row footer-bottom">
+                <div class="col-md-6 col-md-push-6">
+                    <ul class="footer-menu-2 list-unstyled">
+                        @*<li><a href="#">Kariera</a></li>*@
+                        <li><a asp-area="" asp-page="/Privacy">Polityka prywatności</a></li>
+                        @*<li><a href="#">Mapa strony</a></li>
+                            <li><a href="#">Dostępność</a></li>
+                            <li><a href="#">Nota prawna</a></li>*@
+                    </ul>
+                </div>
+                <div class="clearfix visible-sm visible-xs"></div>
+                <div class="col-md-6 col-md-pull-6">
+                    <p class="copyright">Biuro Cyfryzacji Miasta, wersja @typeof(Program).Assembly.GetName().Version.ToString(3) @hostingEnv.EnvironmentName &copy; @DateTime.Now.Year Urząd m.st. Warszawy. Wszystkie prawa zastrzeżone.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/datepicker-pl.js"></script>
+    <script src="~/js/diff.min.js"></script>
+    <script src="~/js/jquery.page-ui.js"></script>
+    <script src="~/js/jquery-migrate.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

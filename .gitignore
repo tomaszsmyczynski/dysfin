@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/.vs/DysFin
+/src/DysFin/bin/Debug/netcoreapp3.0
+/src/DysFin/obj
+/src/DysFin/DysFin.csproj.user
+/src/DysFin/bin/Release/netcoreapp3.0
+/src/DysFin/appsettings.*.json

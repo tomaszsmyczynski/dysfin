@@ -1,0 +1,80 @@
+﻿@page
+@model DysFin.Pages.Kontrole.ZalacznikiModel
+
+<div class="page-buttons">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 page-content">
+            <div class="box-section">
+                <h3 class="bs-header">Załączniki</h3>
+                <form enctype="multipart/form-data" method="post">
+                    <div class="bs-content">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-row">
+                                    <input hidden asp-for="Plik.KontrolaId" value="@ViewBag.KontrolaId" />
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <label asp-for="Plik.FormFile" class="input-label"></label>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input asp-for="Plik.FormFile" type="file" />
+                                        <span asp-validation-for="Plik.FormFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <label asp-for="Plik.Opis" class="input-label"></label>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input asp-for="Plik.Opis" class="text-input input-sm" />
+                                        <span asp-validation-for="Plik.Opis" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <label asp-for="Plik.Data" class="input-label"></label>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input type="text" asp-for="Plik.Data" value="@DateTime.Now.ToShortDateString()" asp-format="{0:d}" class="text-input input-xxs datepicker" autocomplete="off" />
+                                        <span asp-validation-for="Plik.Data" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bs-footer">
+                        <div class="form-row">
+                            <input asp-page-handler="Upload" asp-route-edit="@Model.Edit" class="btn" type="submit" value="Wyślij załącznik" />
+                            @if (Model.Edit)
+                            {
+                                <a asp-page="./Edit" asp-route-id="@ViewBag.KontrolaId" class="btn btn-default pull-right">Wróć do edycji</a>
+                                <a asp-page="./Details" asp-route-id="@ViewBag.KontrolaId" class="btn btn-default pull-right">Wróć do szczegółów</a>
+                            }
+                            <a asp-page="./Index" class="pull-right">Powrót do listy</a>
+                        </div>
+                    </div>
+                </form>
+                <p class="result">
+                    @Model.Result
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

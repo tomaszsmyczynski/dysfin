@@ -1,0 +1,84 @@
+﻿@page
+@model DysFin.Pages.Administracja.JednostkiKontrolowane.EditModel
+
+@{
+    Layout = "_LayoutPanel";
+    ViewData["Title"] = "Jednostka kontrolowana - edycja";
+}
+<div class="page-buttons">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 page-content">
+            <div class="box-section">
+                <h3 class="bs-header">Dane</h3>
+                <form method="post">
+                    <div class="bs-content">
+                        <div class="form-section">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-2 col-md-2">
+                                            <label asp-for="JednostkaKontrolowana.Symbol" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input asp-for="JednostkaKontrolowana.Symbol" class="text-input" />
+                                            <span asp-validation-for="JednostkaKontrolowana.Symbol" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-2 col-md-2">
+                                            <label asp-for="JednostkaKontrolowana.Proces" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select asp-for="JednostkaKontrolowana.ProcesId" class="text-input" asp-items="ViewBag.ProcesId"></select>
+                                            <span asp-validation-for="JednostkaKontrolowana.ProcesId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" asp-for="JednostkaKontrolowana.Id" />
+                                    <div class="form-row row">
+                                        <div class="col-sm-2 col-md-2">
+                                            <label asp-for="JednostkaKontrolowana.Nazwa" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input asp-for="JednostkaKontrolowana.Nazwa" class="text-input" />
+                                            <span asp-validation-for="JednostkaKontrolowana.Nazwa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-2 col-md-2">
+                                            <label asp-for="JednostkaKontrolowana.KomorkaMerytorycznaId" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select asp-for="JednostkaKontrolowana.KomorkaMerytorycznaId" class="text-input" asp-items="ViewBag.KomorkaMerytorycznaId"></select>
+                                            <span asp-validation-for="JednostkaKontrolowana.KomorkaMerytorycznaId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bs-footer">
+                        <div class="form-row">
+                            <input class="btn btn-default pull-right" type="submit" value="Zapisz" />
+                            <a asp-page="./Index" class="pull-right">Powrót do listy</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

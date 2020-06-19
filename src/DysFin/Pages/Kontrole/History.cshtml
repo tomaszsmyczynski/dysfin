@@ -1,0 +1,283 @@
+﻿@page
+@model DysFin.Web.Pages.Kontrole.HistoryModel
+
+@{
+    ViewData["Title"] = "Kontrola zewnętrzna - historia zmian";
+}
+<div class="page-buttons">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 page-content">
+            <div class="box-section">
+                <h3 class="bs-header">Kontrola @Model.Historia.Kontrola</h3>
+                <div class="bs-content">
+                    @foreach (var wpis in Model.Historia.Wpisy)
+                    {
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Data
+                            </dt>
+                            <dd>
+                                @wpis.Data
+                            </dd>
+                            <dt>
+                                Autor
+                            </dt>
+                            <dd>
+                                @wpis.Autor
+                            </dd>
+                            <dt>
+                                Działanie
+                            </dt>
+                            <dd>
+                                @wpis.Wiadomosc
+                            </dd>
+                        </dl>
+                        @if (wpis.KontrolaPrzed != null && wpis.KontrolaPo != null)
+                        {
+                            <table class="table history">
+                                <thead>
+                                    <tr>
+                                        <td>Pole</td>
+                                        <td>Przed</td>
+                                        <td>Po</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.Kontroler)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.Kontroler)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.Kontroler)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.DataUpowaznienia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.DataUpowaznienia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.DataUpowaznienia)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.NumerUpowaznienia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.NumerUpowaznienia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.NumerUpowaznienia)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.Temat)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.Temat)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.Temat)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.OkresOd)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.OkresOd)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.OkresOd)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.OkresDo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.OkresDo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.OkresDo)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.DataRozpoczecia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.DataRozpoczecia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.DataRozpoczecia)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.DataZakonczenia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.DataZakonczenia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.DataZakonczenia)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.Uwagi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.Uwagi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.Uwagi)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.UwagiKW)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.UwagiKW)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.UwagiKW)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.Status)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.Status.Nazwa)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.Status.Nazwa)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.SprawyKadrowe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.SprawyKadrowe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.SprawyKadrowe)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.KontrolaPrzed.FunduszeUE)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.FunduszeUE)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.FunduszeUE)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                        @if (wpis.NieprawidlowoscPrzed != null && wpis.NieprawidlowoscPo != null)
+                        {
+                            <table class="table history">
+                                <thead>
+                                    <tr>
+                                        <td>Pole</td>
+                                        <td>Przed</td>
+                                        <td>Po</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.NieprawidlowoscPrzed.Opis)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPrzed.Opis)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPo.Opis)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.NieprawidlowoscPrzed.OpisPlanowanychDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPrzed.OpisPlanowanychDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPo.OpisPlanowanychDzialan)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.NieprawidlowoscPrzed.PlanowanaData)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPrzed.PlanowanaData)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPo.PlanowanaData)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.NieprawidlowoscPrzed.OpisZrealizowanychDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPrzed.OpisZrealizowanychDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPo.OpisZrealizowanychDzialan)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => wpis.NieprawidlowoscPrzed.DataZakonczeniaDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPrzed.DataZakonczeniaDzialan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => wpis.NieprawidlowoscPo.DataZakonczeniaDzialan)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    }
+                </div>
+                <div class="bs-footer">
+                    <div class="form-row">
+                        <a asp-page="./Details" asp-route-id="@ViewBag.Id" class="btn pull-right">Powrót do szczegółów</a>
+                        <a class="pull-right" asp-page="./Index">Powrót do listy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

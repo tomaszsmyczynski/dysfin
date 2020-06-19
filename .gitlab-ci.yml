@@ -1,0 +1,64 @@
+
+
+image: microsoft/dotnet:3.0.1
+
+variables:
+  DEPLOY_FOLDER: $STAGING_SHARE
+
+stages:
+  - build
+#  - test
+#  - deploy
+before_script:
+
+build:
+  stage: build
+  tags:
+    - develop
+  script:
+    - 'cd src'
+    - 'dotnet restore'
+    - 'dotnet build'
+
+#test:
+#  stage: test
+#  tags:
+#    - develop
+#  script:
+#    - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"' 
+#  artifacts:
+#   when: always 
+#    expire_in: 1 week #
+#    paths:
+#      - '.\TestResult.xml' 
+#  dependencies:
+#    - build_job
+
+#deploy_staging:
+ # stage: deploy
+#  tags:
+ #   - develop
+ # artifacts:
+ #   expire_in: 1 week
+ #   paths:
+ #     - publish/
+ # script:
+    - 'cd src'
+    - 'dotnet publish -c "Debug" -o "../publish" "DysFin\DysFin.Web.csproj"'
+    
+    # W:\local\Projects\DysFin\Builds\Rev1.0.0.1 - First commit\
+    #- '$commitSubject = git log -1 --pretty=%s'
+    - '$deployFolder = $($env:DEPLOY_FOLDER) + "\Services\$CI_PROJECT_NAME"'# + "\" + $($env:CI_BUILD_TAG) + " - " + $commitSubject + "\"'
+
+    - 'cd "../publish"'
+    #- 'net use F: "$deployFolder"'
+    #- 'powershell -Command "Get-Service -ComputerName local04 -Name DysfinService02 | Stop-Service -Force"'
+    - 'xcopy /y /s ".\*" "$deployFolder"'
+    #- 'powershell -Command "Get-Service -ComputerName local04 -Name DysfinService02 | Start-Service"'
+ # environment:
+ #   name: staging
+#    url: https://$CI_PROJECT_NAME.test.local
+ # only:
+ #   - branches
+ # except:
+ #   - master

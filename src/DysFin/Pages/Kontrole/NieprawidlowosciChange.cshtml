@@ -1,0 +1,93 @@
+﻿@page
+@model DysFin.Pages.Kontrole.NieprawidlowosciChangeModel
+
+@{
+    ViewData["Title"] = "Edycja nieprawidłowości";
+}
+<div class="page-buttons">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 page-content">
+            <div class="box-section">
+                <h3 class="bs-header">Dane</h3>
+                <form method="post">
+                    <div class="bs-content">
+                        <div class="form-section">
+                            <div class="row">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-md-8">
+                                    <input type="hidden" asp-for="Nieprawidlowosc.Id" />
+                                    <input type="hidden" asp-for="Nieprawidlowosc.KontrolaId" />
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.Opis" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.Opis" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.Opis" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.PlanowanaData" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Nieprawidlowosc.PlanowanaData" asp-format="{0:d}" class="text-input input-xxs datepicker" />
+                                            <span asp-validation-for="Nieprawidlowosc.PlanowanaData" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.DataZakonczeniaDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text"  asp-for="Nieprawidlowosc.DataZakonczeniaDzialan" asp-format="{0:d}" class="text-input input-xxs datepicker" />
+                                            <span asp-validation-for="Nieprawidlowosc.DataZakonczeniaDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bs-footer">
+                        <div class="form-row">
+                            <input class="btn btn-default pull-right" type="submit" value="Zapisz" />
+                            <a asp-page="./Edit" asp-route-id="@Model.Nieprawidlowosc.KontrolaId" class="pull-right">Anuluj</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

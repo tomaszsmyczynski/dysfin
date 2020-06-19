@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RKZ</title>
+    <link rel="stylesheet" href="~/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/queries.css" />
+
+    <link rel="shortcut icon" href="~/img/page-icons/16.png">
+    <link rel="apple-touch-icon" href="~/img/page-icons/57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/img/page-icons/72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/img/page-icons/114.png">
+</head>
+<body class="body-gray body-header-2 theme-color-3">
+    <div id="wrap">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row footer-bottom">
+                <div class="col-md-6">
+                    <p class="copyright">Tomasz Smyczyński, wersja @typeof(Program).Assembly.GetName().Version.ToString(3) @hostingEnv.EnvironmentName &copy; @DateTime.Now.Year  Wszystkie prawa zastrzeżone.</p>
+                    </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/datepicker-pl.js"></script>
+    <script src="~/js/diff.min.js"></script>
+    <script src="~/js/jquery.page-ui.js"></script>
+    <script src="~/js/jquery-migrate.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

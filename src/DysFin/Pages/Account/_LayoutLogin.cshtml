@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RKZ</title>
+    <link rel="stylesheet" href="~/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/queries.css" />
+
+    <link rel="shortcut icon" href="~/img/page-icons/16.png">
+    <link rel="apple-touch-icon" href="~/img/page-icons/57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/img/page-icons/72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/img/page-icons/114.png">
+</head>
+<body class="page-admin-login theme-color-3">
+    <div class="container-fluid">
+        <div class="row position-relative">
+
+            <div class="col-admin-login-left col-md-4 col-sm-5">
+
+                <div class="al-logo">
+                    <div class="valign-table">
+                        <div class="valign-cell">
+                            <a class="logo" href="/">
+                                <div class="logo-img">
+                                    <img src="~/img/logo.png" alt="Zakochaj się w Warszawie" />
+                                </div>
+                                <div class="logo-txt">
+                                    <div class="logo-txt-inside">
+                                        Rejestr kontroli <br /> zewnętrznych
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="al-intro-sm hidden-xs">
+                        <div class="valign-table">
+                            @*<div class="valign-cell">
+                                <h3>Zaloguj się do swojego konta</h3>
+                                <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>*@
+                        </div>
+                        <div class="al-copyright">&copy; @DateTime.Now.Year Tomasz Smyczyński. Wszystkie prawa zastrzeżone.</div>
+                    </div>
+
+                    <div class="al-intro visible-xs">
+                        <div class="valign-table">
+                            @*<div class="valign-cell">
+                                <h3>Zaloguj się do swojego konta</h3>
+                                <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>*@
+                        </div>
+                    </div>
+
+            </div><!-- .col-admin-login-left -->
+
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.page-ui.js" type="text/javascript"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

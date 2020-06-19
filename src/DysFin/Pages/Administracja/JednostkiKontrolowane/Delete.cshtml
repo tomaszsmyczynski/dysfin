@@ -1,0 +1,40 @@
+﻿@page
+@model DysFin.Pages.Administracja.JednostkiKontrolowane.DeleteModel
+
+<h3>Masz pewność co do usunięcia?</h3>
+<div>
+    <h4>Jednostka kontrolowana</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Symbol)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Symbol)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Proces)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Proces.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Nazwa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Nazwa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.KomorkaMerytoryczna)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.KomorkaMerytoryczna.Id)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="JednostkaKontrolowana.Id" />
+        <input type="submit" value="Usuń" class="btn btn-default" /> |
+        <a asp-page="./Index">Powrót do listy</a>
+    </form>
+</div>

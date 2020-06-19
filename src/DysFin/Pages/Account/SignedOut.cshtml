@@ -1,0 +1,23 @@
+@page
+@model SignedOutModel
+@{
+    Layout = "_LayoutLogin";
+    ViewData["Title"] = "Wylogowano";
+}
+
+<div class="col-admin-login-right col-md-8 col-sm-7">
+
+    <div class="valign-table">
+        <div class="valign-cell">
+
+            <h2>@ViewData["Title"]</h2>
+
+            <p class="bg-success">
+                Pomyślnie wylogowano.
+            </p>
+
+            <div class="al-copy-xs visible-xs">&copy; @DateTime.Now.Year Urząd m.st. Warszawy. Wszystkie prawa zastrzeżone.</div>
+
+        </div>
+    </div>
+</div><!-- .col-admin-login-right -->

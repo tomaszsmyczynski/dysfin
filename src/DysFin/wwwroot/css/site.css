@@ -1,0 +1,144 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+:root {
+    --s40: #69d6f4;
+    --s41: #66c595;
+    --s42: #ea8a80;
+    --s43: #f7be70;
+}
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.btn-partwide {
+    width: 230px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+.urzad {
+    display: none;
+}
+
+.jednostka {
+    display: none;
+}
+
+.powrot {
+    margin: 20px 0 !important;
+}
+
+.desc {
+    font-size: 14px;
+    padding-top: 9px;
+    margin-bottom: 9px;
+}
+
+#main-table > tbody > tr.s40 > td {
+    background-color: var(--s40);
+}
+
+#main-table > tbody > tr.s41 > td {
+    background-color: var(--s41);
+}
+
+#main-table > tbody > tr.s42 > td {
+    background-color: var(--s42);
+}
+
+#main-table > tbody > tr.s43 > td {
+    background-color: var(--s43);
+}
+
+.s40 {
+    background-color: var(--s40);
+}
+
+.s17 {
+    background-color: #808080;
+}
+
+.s42 {
+    background-color: var(--s42);
+}
+
+.s43 {
+    background-color: var(--s43);
+}
+
+.ui-datepicker-year {
+    color: #000000;
+}
+
+.table-responsive {
+    overflow-x: unset;
+}
+
+.action-box .btn {
+    margin: 13px 0;
+}

@@ -1,0 +1,37 @@
+﻿@page
+@model DysFin.Pages.Administracja.JednostkiKontrolowane.DetailsModel
+
+<div>
+    <h4>Jednostka kontrolowana</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Symbol)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Symbol)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Proces)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Proces.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.Nazwa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.Nazwa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JednostkaKontrolowana.KomorkaMerytoryczna)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JednostkaKontrolowana.KomorkaMerytoryczna.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.JednostkaKontrolowana.Id"><i class="fa fa-edit"></i> Edytuj</a> |
+    <a asp-page="./Index">Powrót do listy</a>
+</div>

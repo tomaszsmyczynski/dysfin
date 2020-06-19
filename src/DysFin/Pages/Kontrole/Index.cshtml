@@ -1,0 +1,485 @@
+﻿@page
+@model DysFin.Pages.Kontrole.IndexModel
+
+@{
+    ViewData["Title"] = "Rejestr kontroli zewnętrznych - lista";
+}
+<div class="page-buttons">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--<a class="page-back" href="#"><</a>-->
+                <h2 class="page-subtitle">@ViewData["Title"]</h2>
+                @{var role = User.Claims.FirstOrDefault(u => u.Type.EndsWith("role")).Value; }
+                @if (role != "3" && role != "5")
+                {
+                    <a asp-page="./Create" type="button" class="btn btn-default btn-partwide">Nowa kontrola zewnętrzna</a>
+                }
+                @if (User.Claims.FirstOrDefault(u => u.Type.EndsWith("role")).Value == "2")
+                {
+                    <form method="post" asp-page-handler="ExportExcel">
+                        <button class="btn">Eksport</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="text-danger">@ViewBag.Closed</h3>
+            <a data-toggle="collapse" href="#searchGroup" aria-expanded="false" aria-controls="searchGroup">
+                <h3>Wyszukiwanie <i class="fa fa-angle-double-down" id="searchIcon"></i></h3>
+            </a>
+            <div class="collapse" id="searchGroup">
+                <form id="SearchForm" class="gray-form" asp-page="./Index" method="post">
+                    <input id="numer" name="numer" type="text" hidden>
+                </form>
+                <form class="gray-form" asp-page="./Index" method="get">
+                    <div class="form-row row">
+                        <div class="col-md-2">
+                            <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].Numer)</label>
+                            <input type="text" class="text-input" id="SearchString" name="SearchString" value="@Model.CurrentFilter" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolowana)</label>
+                            <select asp-for="JednostkaKontrolowana" class="text-input" asp-items="ViewBag.JednostkaKontrolowanaId" value="@Model.CurrentFilterKontrolowana"></select>
+                        </div>
+                        @if (role != "3" && role != "16")
+                        {
+                            <div class="col-md-4">
+                                <label class="input-label text-right">@Html.Raw("Komórka")</label>
+                                <select asp-for="Komorka" class="text-input" asp-items="ViewBag.KomorkaId" value="@Model.CurrentFilterKomorka"></select>
+                            </div>
+                        }
+                        @*<div class="col-md-2">
+                            <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].DataRozpoczecia) od</label>
+                            <input type="text" class="text-input datepicker" name="DataRozpoczeciaOd" placeholder="@DateTime.Now.AddDays(-7).ToShortDateString()" />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].DataRozpoczecia) do</label>
+                            <input type="text" class="text-input datepicker" name="DataRozpoczeciaDo" placeholder="@DateTime.Now.AddDays(-7).ToShortDateString()" />
+                        </div>*@
+                    </div>
+                    <div class="form-row row">
+                        <div class="col-md-2">
+                            <label class="input-label text-right">@Html.Raw("Status")</label>
+                            <select asp-for="Status" class="text-input" asp-items="ViewBag.StatusId" value="@Model.CurrentFilterStatus"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolujaca)</label>
+                            <select asp-for="JednostkaKontrolujaca" class="text-input" asp-items="ViewBag.JednostkaKontrolujacaId" value="@Model.CurrentFilterKontrolujaca"></select>
+                        </div>
+                        @*<div class="col-md-2">
+                                <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].DataZakonczenia) od</label>
+                                <input type="text" class="text-input datepicker" name="DataZakonczeniaOd" placeholder="@DateTime.Now.ToShortDateString()" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="input-label text-right">@Html.DisplayNameFor(model => model.Kontrola[0].DataZakonczenia) do</label>
+                                <input type="text" class="text-input datepicker" name="DataZakonczeniaDo" placeholder="@DateTime.Now.ToShortDateString()" />
+                            </div>*@
+                        <div class="col-md-2">
+                            <button id="Kontrola_Szukaj" class="btn btn-red btn-wide form-button" type="submit">Szukaj</button>
+                        </div>
+                        <div class="col-md-2">
+                            <a asp-page="./Index" class="btn btn-wide form-button">Resetuj</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @if (Model.Kontrola != null)
+            {
+                <div class="action-box pull-right">
+                    @*
+                        Toggle table columns:
+                        - this mechanism is written in file jquery.page-ui.js starting with line "//Toggle table columns"
+                        - toggling these options also creates or ereases a cookie named with the input's name (example: column[0])
+                        - this cookie name indicates which column is to be hidden or shown on page load (simply make checkbox checked or unchecked on page load; script will do the rest)
+                        - you can use diffrent input/cookie names for table on diffrent subpages
+                        - indexes in these names and mandatory and they match column's index (<td>) and option's index (<li>) in the DOM tree
+                        - id="main-table" is mandatory for the table
+                        - you can't toggle columns which have "colspan". for these columns insert an <li> with disabled checkbox on the fs-list:
+                        <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" value="" name="column[column_index]" value="1" checked disabled>
+                                Name of the column
+                              </label>
+                            </div>
+                        </li>
+                    *@
+                    <button type="button" class="btn btn-default btn-partwide" href="#">Ukryj/odkryj kolumny</button>
+                    <ul class="fs-list list-unstyled fs-columns" style="display: none;">
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[0]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].Lp)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[1]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].Numer)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[2]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolujaca)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[3]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolowana)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[4]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].KomorkaWiodaca)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[5]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].DataRozpoczecia)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[6]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].DataZakonczenia)
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="column[7]" value="1" checked>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].Status)
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="table-responsive table-style-3-wrap">
+                    <table id="main-table" class="table table-style-3 table-moreless">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Kontrola[0].Lp)
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.NumerSort">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].Numer)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.JednostkaKontrolujacaSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter"
+                                       asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                       asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                       asp-route-status="@Model.CurrentFilterStatus"
+                                       asp-route-komorka="@Model.CurrentFilterKomorka">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolujaca)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.JednostkaKontrolowanaSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter"
+                                       asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                       asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                       asp-route-status="@Model.CurrentFilterStatus"
+                                       asp-route-komorka="@Model.CurrentFilterKomorka">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].JednostkaKontrolowana)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.KomorkaWiodacaSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter"
+                                       asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                       asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                       asp-route-status="@Model.CurrentFilterStatus"
+                                       asp-route-komorka="@Model.CurrentFilterKomorka">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].KomorkaWiodaca)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.DataRozpoczeciaSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter"
+                                       asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                       asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                       asp-route-status="@Model.CurrentFilterStatus"
+                                       asp-route-komorka="@Model.CurrentFilterKomorka">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].DataRozpoczecia)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.DataZakonczeniaSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter"
+                                       asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                       asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                       asp-route-status="@Model.CurrentFilterStatus"
+                                       asp-route-komorka="@Model.CurrentFilterKomorka">
+                                        @Html.DisplayNameFor(model => model.Kontrola[0].DataZakonczenia)
+                                    </a>
+                                </th>
+                                <th>
+                                    <a asp-page="./Index" asp-route-sortOrder="@Model.StatusSort"
+                                       asp-route-currentFilter="@Model.CurrentFilter">
+                                        @Html.Raw("Status")
+                                    </a>
+                                </th>
+                                <th style="min-width: 165px;">Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Kontrola)
+                            {
+                                <tr class="tr-toggle @string.Concat('s', item.Status.Id.ToString())">
+                                    <td>
+                                        @(Model.Kontrola.IndexOf(item) + 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Numer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JednostkaKontrolujaca.Nazwa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JednostkaKontrolowana.Nazwa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KomorkaWiodaca.Nazwa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataRozpoczecia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataZakonczenia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status.Nazwa)
+                                    </td>
+                                    <td>
+                                        @if (role != "3" && role != "5")
+                                        {
+                                            @if (item.StatusId != 40 && item.StatusId != 41)
+                                            {
+                                                <a class="btn btn-xs" asp-page="./Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i> Edytuj</a>
+                                            }
+                                        }
+                                        <a class="btn btn-xs" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-info-circle"></i> Szczegóły</a>
+                                    </td>
+                                </tr>
+                                <tr class="tr-more">
+                                    <td colspan=13>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].DataUpowaznienia)</strong></div>
+                                            <div><i class="fa fa-calendar"></i> @Html.DisplayFor(modelItem => item.DataUpowaznienia)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].NumerUpowaznienia)</strong></div>
+                                            <div>@Html.DisplayFor(modelItem => item.NumerUpowaznienia)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].ZnakWiodacy)</strong></div>
+                                            <div>@Html.DisplayFor(modelItem => item.ZnakWiodacy)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].DataWpisu)</strong></div>
+                                            <div><i class="fa fa-calendar"></i> @Html.DisplayFor(modelItem => item.DataWpisu)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].Kontroler)</strong></div>
+                                            <div>@Html.DisplayFor(modelItem => item.Kontroler)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].OkresOd)</strong></div>
+                                            <div><i class="fa fa-calendar"></i> @Html.DisplayFor(modelItem => item.OkresOd)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].OkresDo)</strong></div>
+                                            <div><i class="fa fa-calendar"></i> @Html.DisplayFor(modelItem => item.OkresDo)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].Temat)</strong></div>
+                                            <div>@Html.DisplayFor(modelItem => item.Temat)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].TypKontroli)</strong></div>
+                                            <div>@Html.DisplayFor(modelItem => item.TypKontroli.Nazwa)</div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].SprawyKadrowe)</strong></div>
+                                            <div>
+                                                @if (item.SprawyKadrowe)
+                                                {
+                                                    <i class="fa fa-check" style="color: #39C70A"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-remove" style="color: #DD1B1B"></i>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="trm-part">
+                                            <div><strong>@Html.DisplayNameFor(model => model.Kontrola[0].FunduszeUE)</strong></div>
+                                            <div>
+                                                @if (item.FunduszeUE)
+                                                {
+                                                    <i class="fa fa-check" style="color: #39C70A"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-remove" style="color: #DD1B1B"></i>
+                                                }
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="bs-footer">
+                        <div class="form-row">
+
+                            @{
+                                var prevHidden = !Model.Kontrola.HasPreviousPage ? "hidden" : "";
+                                var nextHidden = !Model.Kontrola.HasNextPage ? "hidden" : "";
+                                var thirdHidden = !Model.Kontrola.HasThirdPage ? "hidden" : "";
+                                var fourthHidden = !Model.Kontrola.HasFourthPage ? "hidden" : "";
+                                var fifthHidden = !Model.Kontrola.HasFifthPage ? "hidden" : "";
+                            }
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination">
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@prevHidden"
+                                           aria-label="First">
+                                            «
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.PageIndex - 1)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@prevHidden"
+                                           aria-label="Previous">
+                                            @(Model.Kontrola.PageIndex - 1)
+                                        </a>
+                                    </li>
+                                    <li><span class="active">@Model.Kontrola.PageIndex</span></li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.PageIndex + 1)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@nextHidden"
+                                           aria-label="Next">
+                                            @(Model.Kontrola.PageIndex + 1)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.PageIndex + 2)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@thirdHidden"
+                                           aria-label="Third">
+                                            @(Model.Kontrola.PageIndex + 2)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.PageIndex + 3)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@fourthHidden"
+                                           aria-label="Fourth">
+                                            @(Model.Kontrola.PageIndex + 3)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.PageIndex + 4)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@fifthHidden"
+                                           aria-label="Fifth">
+                                            @(Model.Kontrola.PageIndex + 4)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="./Index"
+                                           asp-route-sortOrder="@Model.CurrentSort"
+                                           asp-route-pageIndex="@(Model.Kontrola.TotalPages)"
+                                           asp-route-currentFilter="@Model.CurrentFilter"
+                                           asp-route-jednostkaKontrolujaca="@Model.CurrentFilterKontrolujaca"
+                                           asp-route-jednostkaKontrolowana="@Model.CurrentFilterKontrolowana"
+                                           asp-route-status="@Model.CurrentFilterStatus"
+                                           asp-route-komorka="@Model.CurrentFilterKomorka"
+                                           class="@nextHidden"
+                                           aria-label="Last">
+                                            »
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div><!-- .table-responsive -->
+            }
+            else
+            {
+                <p class="bg-danger">
+                    Nie znaleziono kontroli o podanym numerze.
+                </p>
+            }
+        </div>
+    </div>
+</div>
