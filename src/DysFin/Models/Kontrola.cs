@@ -56,10 +56,10 @@ namespace DysFin.Models
         /// <summary>
         /// Identyfikator jednostki kontrolującej.
         /// </summary>
+        [Display(Name = "Jednostka kontrolująca")]
         public int JednostkaKontrolujacaId { get; set; }
 
-        [Display(Name = "Jednostka kontrolująca")]
-        public JednostkaKontrolujaca JednostkaKontrolujaca { get; set; }
+        public JednostkaKontrolujaca? JednostkaKontrolujaca { get; set; }
 
         /// <summary>
         /// Dane kontrolera / kontrolerów
@@ -106,17 +106,17 @@ namespace DysFin.Models
         /// <summary>
         /// Identyfikator jednostki kontrolowanej.
         /// </summary>
+        [Display(Name = "Jednostka kontrolowana")]
         public int? JednostkaKontrolowanaId { get; set; }
 
-        [Display(Name = "Jednostka kontrolowana")]
         public JednostkaKontrolowana? JednostkaKontrolowana { get; set; }
 
         /// <summary>
         /// Identyfikator komórki wiodącej.
         /// </summary>
+        [Display(Name = "Komórka wiodąca")]
         public int KomorkaWiodacaId { get; set; }
 
-        [Display(Name = "Komórka wiodąca")]
         public Komorka? KomorkaWiodaca { get; set; }
 
         /// <summary>
@@ -154,19 +154,19 @@ namespace DysFin.Models
         /// <summary>
         /// Identyfikator typu kontroli.
         /// </summary>
+        [Display(Name = "Typ kontroli")]
         public int TypKontroliId { get; set; }
 
         [ForeignKey("TypKontroliId")]
-        [Display(Name = "Typ kontroli")]
         public SlownikTypKontroli? TypKontroli { get; set; }
 
         /// <summary>
         /// Identyfikator statusu.
         /// </summary>
+        [Display(Name = "Status")]
         public int StatusId { get; set; }
 
         [ForeignKey("StatusId")]
-        [Display(Name = "Status")]
         public SlownikStatusKontroli? Status { get; set; }
 
         /// <summary>

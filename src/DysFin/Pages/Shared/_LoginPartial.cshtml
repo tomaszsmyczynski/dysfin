@@ -1,6 +1,4 @@
-﻿@using System.Security.Principal
-
-<div class="h2-dropdown">
+﻿<div class="h2-dropdown">
     @if (User.Identity.IsAuthenticated)
     {
         char i = User.Claims.FirstOrDefault(u => u.Type.EndsWith("givenname")).Value.ElementAt(0);
@@ -17,7 +15,7 @@
                     <div class="user-thumb">
                         @string.Concat(i, " ", n)
                     </div>
-                    <h5 class="text-uppercase">@User.Identity.Name</h5>
+                    <strong class="text-uppercase">@User.Identity.Name</strong>
                     <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/")" method="post">
                         <button type="submit" class="nav-link btn btn-link text-dark">Wyloguj</button>
                     </form>

@@ -79,16 +79,11 @@ namespace DysFin.Pages.Administracja.JednostkiKontrolujace
                 jednostkaKontrolujacaIQ = jednostkaKontrolujacaIQ.Where(j => j.Nazwa.Contains(searchString));
             }
 
-            switch (sortOrder)
+            jednostkaKontrolujacaIQ = sortOrder switch
             {
-                case "Nazwa_desc":
-                    jednostkaKontrolujacaIQ = jednostkaKontrolujacaIQ.OrderByDescending(j => j.Nazwa);
-                    break;
-                default:
-                    jednostkaKontrolujacaIQ = jednostkaKontrolujacaIQ.OrderBy(j => j.Nazwa);
-                    break;
-            }
-
+                "Nazwa_desc" => jednostkaKontrolujacaIQ.OrderByDescending(j => j.Nazwa),
+                _ => jednostkaKontrolujacaIQ.OrderBy(j => j.Nazwa),
+            };
             int pageSize = 10;
             JednostkaKontrolujaca = await PaginatedList<JednostkaKontrolujaca>.CreateAsync(
                 jednostkaKontrolujacaIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
@@ -116,7 +111,7 @@ namespace DysFin.Pages.Administracja.JednostkiKontrolujace
 
             stream.Position = 0;
 
-            string excelName = $"{nameof(JednostkiKontrolujace)}-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            string excelName = $"{nameof(JednostkiKontrolujace)}-{DateTime.Now:yyyyMMddHHmmssfff}.xlsx";
 
             Log
                 .ForContext("UserId", int.Parse(User.Claims.FirstOrDefault(u => u.Type.EndsWith("nameidentifier")).Value))

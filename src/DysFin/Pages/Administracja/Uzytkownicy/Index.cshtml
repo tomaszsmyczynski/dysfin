@@ -27,17 +27,17 @@
                 <h1>Wyszukiwanie:</h1>
                 <div class="form-row row">
                     <div class="col-md-3">
-                        <label class="input-label text-right">@Html.DisplayNameFor(model => model.Uzytkownik[0].Login) / @Html.DisplayNameFor(model => model.Uzytkownik[0].Nazwisko)</label>
-                        <input type="text" class="text-input" name="SearchString" value="@Model.CurrentFilter" />
+                        <label asp-for="CurrentFilter" class="input-label text-right">@Html.DisplayNameFor(model => model.Uzytkownik[0].Login) / @Html.DisplayNameFor(model => model.Uzytkownik[0].Nazwisko)</label>
+                        <input asp-for="CurrentFilter" type="text" class="text-input" name="SearchString" value="@Model.CurrentFilter" />
                     </div>
                     <div class="col-md-3">
-                        <label class="input-label text-right">@Html.DisplayNameFor(model => model.Uzytkownik[0].PoziomUzytkownika)</label>
+                        <label asp-for="PoziomUzytkownika" class="input-label text-right">@Html.DisplayNameFor(model => model.Uzytkownik[0].PoziomUzytkownika)</label>
                         <select asp-for="PoziomUzytkownika" class="text-input" asp-items="ViewBag.PoziomUzytkownikaId" value="@Model.CurrentFilterPZ"></select>
                     </div>
                 </div>
                 <div class="form-row row">
                     <div class="col-md-6">
-                        <label class="input-label text-right">@Html.Raw("Jednostka odp. maj.")</label>
+                        <label asp-for="Komorka" class="input-label text-right">@Html.Raw("Jednostka odp. maj.")</label>
                         <select asp-for="Komorka" class="text-input" asp-items="ViewBag.KomorkaId" value="@Model.CurrentFilterKomorka"></select>
                     </div>
                     <div class="col-md-2">
@@ -96,7 +96,7 @@
                                     @Html.DisplayFor(modelItem => item.Login)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PoziomUzytkownika.Nazwa)
+                                    @Html.DisplayFor(modelItem => item.PoziomUzytkownikaId)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Imie)
@@ -105,7 +105,14 @@
                                     @Html.DisplayFor(modelItem => item.Nazwisko)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
+                                    @if (item.Status)
+                                    {
+                                        <i class="fa fa-check" style="color: #39C70A"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-remove" style="color: #DD1B1B"></i>
+                                    }
                                 </td>
                                 <td>
                                     <a class="btn btn-xs" asp-page="./Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i> Edytuj</a>
@@ -126,7 +133,7 @@
                                         <div>@Html.DisplayFor(modelItem => item.Jednostka.Nazwa)</div>
                                     </div>*@
                                     <div class="trm-part">
-                                        <div><strong>@Html.DisplayNameFor(model => model.Uzytkownik[0].Komorka)</strong></div>
+                                        <div><strong>@Html.DisplayNameFor(model => model.Uzytkownik[0].KomorkaId)</strong></div>
                                         <div>@Html.DisplayFor(modelItem => item.Komorka.Nazwa)</div>
                                     </div>
                                 </td>

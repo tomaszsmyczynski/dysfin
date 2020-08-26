@@ -30,7 +30,7 @@ namespace DysFin.Pages
 
         public Dictionary<string, int> KontrolaProcesy = new Dictionary<string, int>();
 
-        public Dictionary<string, int> KontrolaJednostki = new Dictionary<string, int>();
+        public Dictionary<KeyValuePair<int,string>, int> KontrolaJednostki = new Dictionary<KeyValuePair<int, string>, int>();
 
         public Dictionary<string, int> ZaleceniaJednostki = new Dictionary<string, int>();
 
@@ -50,12 +50,16 @@ namespace DysFin.Pages
 
             foreach (var jednostka in _context.Kontrola.Include(k => k.JednostkaKontrolujaca).AsEnumerable().GroupBy(k => k.JednostkaKontrolujaca))
             {
-                KontrolaJednostki.Add(jednostka.Key.Nazwa, jednostka.Count());
+                KontrolaJednostki.Add(new KeyValuePair<int, string>(jednostka.Key.Id, jednostka.Key.Nazwa), jednostka.Count());
             }
 
             foreach (var jednostka in _context.Nieprawidlowosc.Include(n => n.Kontrola).Include(j => j.Kontrola.JednostkaKontrolujaca).AsEnumerable().GroupBy(k => k.Kontrola.JednostkaKontrolujaca))
             {
-                ZaleceniaJednostki.Add(jednostka.Key.Nazwa, jednostka.Count(j => j.DataZakonczeniaDzialan.HasValue));
+                var nierozwiazaneZalecenia = jednostka.Count(j => j.DataZakonczeniaDzialan.HasValue == false);
+                if (nierozwiazaneZalecenia > 0)
+                {
+                    ZaleceniaJednostki.Add(jednostka.Key.Nazwa, nierozwiazaneZalecenia);
+                }
             }
         }
 

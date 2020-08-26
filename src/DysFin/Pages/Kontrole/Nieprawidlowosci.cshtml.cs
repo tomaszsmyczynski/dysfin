@@ -54,7 +54,7 @@ namespace DysFin.Pages.Kontrole
             }
             else
             {
-                return RedirectToPage("./Index", new { closed = "Aby dodać nieprawidłowość/zalecenie kontrola nie może być w statusie Zamknięta." });
+                return RedirectToPage("./Index");
             }
         }
 
@@ -78,7 +78,7 @@ namespace DysFin.Pages.Kontrole
 
             if (kontrola.StatusId == 43 && kontrola.Nieprawidlowosci.Count == 1)
             {
-                return RedirectToPage("./Index", new { closed = "Kontrola w statusie Działania naprawcze musi mieć nieprawidłowości/zalecenia." });
+                return RedirectToPage("./Index");
             }
 
             var nieprawidlowosc = await _context.Nieprawidlowosc.FindAsync(id);
@@ -100,12 +100,6 @@ namespace DysFin.Pages.Kontrole
         }
 
         /// <summary>
-        /// Identyfikator kontroli.
-        /// </summary>
-        [BindProperty]
-        public int KontrolaId { get; set; }
-
-        /// <summary>
         /// Pozycja <see cref="Nieprawidlowosc"/>.
         /// </summary>
         [BindProperty]
@@ -121,12 +115,10 @@ namespace DysFin.Pages.Kontrole
         {
             if (!ModelState.IsValid)
             {
-                ViewData["KontrolaId"] = KontrolaId;
+                ViewData["KontrolaId"] = Nieprawidlowosc.KontrolaId;
 
                 return Page();
             }
-
-            Nieprawidlowosc.KontrolaId = KontrolaId;
 
             _context.Nieprawidlowosc.Add(Nieprawidlowosc);
             await _context.SaveChangesAsync();
@@ -135,10 +127,10 @@ namespace DysFin.Pages.Kontrole
                 .ForContext("UserId", int.Parse(User.Claims.FirstOrDefault(u => u.Type.EndsWith("nameidentifier")).Value))
                 .ForContext("Table", nameof(Kontrola))
                 .ForContext("RecordId", Nieprawidlowosc.Id)
-                .ForContext("MainRecordId", KontrolaId)
+                .ForContext("MainRecordId", Nieprawidlowosc.KontrolaId)
                 .Warning("Dodanie nieprawidłowości.");
 
-            var kontrola = await _context.Kontrola.FirstOrDefaultAsync(m => m.Id == KontrolaId);
+            var kontrola = await _context.Kontrola.FirstOrDefaultAsync(m => m.Id == Nieprawidlowosc.KontrolaId);
 
             if (kontrola.StatusId != 43)
             {
@@ -155,7 +147,10 @@ namespace DysFin.Pages.Kontrole
                     .Warning("Zmiana statusu kontroli {Numer}.", kontrola.Numer);
             }
 
-            return RedirectToPage("./Nieprawidlowosci", new { id = kontrola.Id });
+            ViewData["KontrolaId"] = Nieprawidlowosc.KontrolaId;
+            ViewData["Title"] = "Kontrola zewnętrzna - nowa nieprawidłowość/zalecenie";
+
+            return Page();
         }
     }
 }

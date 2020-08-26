@@ -4,7 +4,7 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.Numer" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.Numer)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.Numer)</p>
@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.TypKontroli" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.TypKontroliId)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.TypKontroli.Nazwa)</p>
@@ -20,7 +20,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.JednostkaKontrolowana" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.JednostkaKontrolowanaId)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 @if (Model.JednostkaKontrolowana == null)
@@ -37,7 +37,7 @@
         {
             <div class="row">
                 <div class="col-sm-4 col-md-4">
-                    <label asp-for="@Model.KomorkaWiodaca" class="label-lg"></label>
+                    <p class="lab">@Html.DisplayNameFor(model => model.KomorkaWiodacaId)</p>
                 </div>
                 <div class="col-sm-8 col-md-8 col-lg-8">
                     <p class="desc">@Html.DisplayFor(model => model.KomorkaWiodaca.Nazwa)</p>
@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 col-md-4">
-                    <label asp-for="@Model.ZnakWiodacy" class="label-lg"></label>
+                    <p class="lab">@Html.DisplayNameFor(model => model.ZnakWiodacy)</p>
                 </div>
                 <div class="col-sm-8 col-md-8 col-lg-8">
                     <p class="desc">@Html.DisplayFor(model => model.ZnakWiodacy)</p>
@@ -53,7 +53,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 col-md-4">
-                    <label asp-for="@Model.KomorkiUczestniczace" class="label-lg"></label>
+                    <p class="lab">@Html.DisplayNameFor(model => model.KomorkiUczestniczace)</p>
                 </div>
                 <ol class="col-sm-8 col-md-8 col-lg-8">
                     @foreach (var kontrolaKomorki in Model.KomorkiUczestniczace)
@@ -65,7 +65,7 @@
         }
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.JednostkaKontrolujaca" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.JednostkaKontrolujaca)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.JednostkaKontrolujaca.Nazwa)</p>
@@ -73,7 +73,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.Kontroler" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.Kontroler)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.Kontroler)</p>
@@ -81,7 +81,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.DataUpowaznienia" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.DataUpowaznienia)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.DataUpowaznienia)</p>
@@ -89,7 +89,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.NumerUpowaznienia" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.NumerUpowaznienia)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.NumerUpowaznienia)</p>
@@ -97,7 +97,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.Temat" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.Temat)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.Temat)</p>
@@ -105,7 +105,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.Procesy" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.Procesy)</p>
             </div>
             <ol class="col-sm-8 col-md-8 col-lg-8">
                 @foreach (var kontrolaProces in Model.Procesy)
@@ -118,7 +118,7 @@
     <div class="col-md-4">
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.DataWpisu" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.DataWpisu)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.DataWpisu)</p>
@@ -126,7 +126,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.DataRozpoczecia" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.DataRozpoczecia)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.DataRozpoczecia)</p>
@@ -134,7 +134,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.DataZakonczenia" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.DataZakonczenia)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.DataZakonczenia)</p>
@@ -142,7 +142,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.OkresOd" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.OkresOd)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.OkresOd)</p>
@@ -150,7 +150,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.OkresDo" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.OkresDo)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.OkresDo)</p>
@@ -158,7 +158,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label class="label-lg">Dotyczy</label>
+                <p class="lab">Dotyczy</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <div class="checkbox-inline">
@@ -185,7 +185,7 @@
         <hr />
         <div class="row">
             <div class="col-sm-4 col-md-4">
-                <label asp-for="@Model.Uwagi" class="label-lg"></label>
+                <p class="lab">@Html.DisplayNameFor(model => model.Uwagi)</p>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <p class="desc">@Html.DisplayFor(model => model.Uwagi)</p>
@@ -222,7 +222,7 @@
                     if (i % 2 == 0)
                     {
                         <tr>
-                            <td><a href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
+                            <td><a class="btn btn-xs" href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Nazwa)</td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Opis)</td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Data)</td>
@@ -231,7 +231,7 @@
                     else
                     {
                         <tr class="tr-odd">
-                            <td><a href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
+                            <td><a class="btn btn-xs" href="/Kontrole/Zalaczniki?handler=File&id=@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Id)"><i class="fa fa-download"></i> Pobierz</a></td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Nazwa)</td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Opis)</td>
                             <td>@Html.DisplayFor(model => model.Zalaczniki.ElementAt(i).Data)</td>

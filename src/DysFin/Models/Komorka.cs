@@ -10,6 +10,7 @@ namespace DysFin.Models
     /// <summary>
     /// Model danych komórki organizacyjnej.
     /// </summary>
+    [Display(Name = "Komórka")]
     public class Komorka : ModelBaza
     {
         /// <summary>

@@ -37,18 +37,18 @@ namespace DysFin.Pages.Account
         public InputModel Input { get; set; }
 
         /// <summary>
-        /// URL odsyï¿½ajï¿½cy.
+        /// URL odsy³aj¹cy.
         /// </summary>
         public string ReturnUrl { get; set; }
 
         /// <summary>
-        /// Treï¿½ï¿½ bï¿½ï¿½du.
+        /// Treœæ b³êdu.
         /// </summary>
         [TempData]
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Dane logowania uï¿½ytkownika.
+        /// Dane logowania u¿ytkownika.
         /// </summary>
         public class InputModel
         {
@@ -60,18 +60,18 @@ namespace DysFin.Pages.Account
             public string Login { get; set; }
 
             /// <summary>
-            /// Hasï¿½o.
+            /// Has³o.
             /// </summary>
             [Required]
-            [Display(Name = "Hasï¿½o")]
+            [Display(Name = "Has³o")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }
 
         /// <summary>
-        /// Wyï¿½wietlenie strony logowania.
+        /// Wyœwietlenie strony logowania.
         /// </summary>
-        /// <param name="returnUrl">URL odsyï¿½ajï¿½cy.</param>
+        /// <param name="returnUrl">URL odsy³aj¹cy.</param>
         /// <returns>Strona logowania.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -80,7 +80,7 @@ namespace DysFin.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            // Wyczyï¿½ï¿½ istniejï¿½ce zewnï¿½trzne ciasteczko
+            // Wyczyœæ istniej¹ce zewnêtrzne ciasteczko
             #region snippet2
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
@@ -90,10 +90,10 @@ namespace DysFin.Pages.Account
         }
 
         /// <summary>
-        /// Przesyï¿½a dane logowania do aplikacji.
+        /// Przesy³a dane logowania do aplikacji.
         /// </summary>
-        /// <param name="returnUrl">URL odsyï¿½ajï¿½cy.</param>
-        /// <returns>Loguje uï¿½ytkownika i odsyï¿½a do przekazanego adresu bï¿½dï¿½ wyï¿½wietlania informacjï¿½ o nieudanym logowaniu.</returns>
+        /// <param name="returnUrl">URL odsy³aj¹cy.</param>
+        /// <returns>Loguje u¿ytkownika i odsy³a do przekazanego adresu b¹dŸ wyœwietlania informacjê o nieudanym logowaniu.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -104,12 +104,12 @@ namespace DysFin.Pages.Account
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Nie ma takiego uï¿½ytkownika.");
+                    ModelState.AddModelError(string.Empty, "Nie ma takiego u¿ytkownika.");
                     return Page();
                 }
                 else if (!user.Status)
                 {
-                    ModelState.AddModelError(string.Empty, "Uï¿½ytkownik wygaszony.");
+                    ModelState.AddModelError(string.Empty, "U¿ytkownik wygaszony.");
                     return Page();
                 }
 
@@ -180,33 +180,33 @@ namespace DysFin.Pages.Account
                             Log
                                 .ForContext("UserId", user.Id)
                                 .ForContext("Table", user.GetType().Name)
-                                .Warning("Logowanie uï¿½ytkownika {Login}.", user.Login);
+                                .Warning("Logowanie u¿ytkownika {Login}.", user.Login);
 
                             return LocalRedirect(Url.GetLocalUrl(returnUrl));
                         }
                         else
                         {
-                            ModelState.AddModelError(string.Empty, "Nieprawidï¿½owe dane logowania do domeny.");
+                            ModelState.AddModelError(string.Empty, "Nieprawid³owe dane logowania do domeny.");
                             return Page();
                         }
                     }
                     catch (LdapException)
                     {
-                        ModelState.AddModelError(string.Empty, "Serwer LDAP jest niedostï¿½pny.");
+                        ModelState.AddModelError(string.Empty, "Serwer LDAP jest niedostêpny.");
                         return Page();
                     }
                 }
             }
 
-            // Coï¿½ poszï¿½o nie tak. Odï¿½wieï¿½ formularz.
+            // Coœ posz³o nie tak. Odœwie¿ formularz.
             return Page();
         }
 
         /// <summary>
-        /// Uwierzytelnia uï¿½ytkownika.
+        /// Uwierzytelnia u¿ytkownika.
         /// </summary>
-        /// <param name="login">Login uï¿½ytkownika.</param>
-        /// <returns>Profil uï¿½ytkownika jeï¿½li istnieje.</returns>
+        /// <param name="login">Login u¿ytkownika.</param>
+        /// <returns>Profil u¿ytkownika jeœli istnieje.</returns>
         private async Task<Uzytkownik> AuthenticateUserAsync(string login)
         {
             var user = await _context.Uzytkownik.Include(u => u.PoziomUzytkownika).FirstOrDefaultAsync(u => u.Login == login);

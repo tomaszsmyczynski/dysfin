@@ -10,7 +10,7 @@
     <div class="valign-table">
         <div class="valign-cell">
             <div class="box-section">
-                <h2 class="bs-header" h2>Zaloguj się na swoje konto</h2>
+                <h1 class="bs-header">Zaloguj się na swoje konto</h1>
 
                 <form method="post">
                     <div class="bs-content">
@@ -18,14 +18,12 @@
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="form-row">
                                 <label asp-for="Input.Login"></label><span class="label-required">*</span>
-                                <!--<label asp-for="Input.Email" class="input-label"></label>-->
                                 <input asp-for="Input.Login" class="text-input input-xs">
                                 <span asp-validation-for="Input.Login" class="text-danger"></span>
                             </div>
 
                             <div class="form-row">
                                 <label asp-for="Input.Password"></label><span class="label-required">*</span>
-                                <!--<label asp-for="Input.Password" class="input-label"></label>-->
                                 <input asp-for="Input.Password" class="text-input input-xs">
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
@@ -38,7 +36,6 @@
                     </div>
                 </form>
             </div>
-            <div class="al-copy-xs visible-xs">&copy; @DateTime.Now.Year Urząd m.st. Warszawy. Wszystkie prawa zastrzeżone.</div>
         </div>
     </div>
 </div><!-- .col-admin-login-right -->

@@ -150,33 +150,17 @@ namespace DysFin.Pages.Administracja.Uzytkownicy
                 }
             }
 
-            switch (sortOrder)
+            uzytkownikIQ = sortOrder switch
             {
-                case "Nazwisko_desc":
-                    uzytkownikIQ = uzytkownikIQ.OrderByDescending(u => u.Nazwisko);
-                    break;
-                case "Login":
-                    uzytkownikIQ = uzytkownikIQ.OrderBy(u => u.Login);
-                    break;
-                case "Login_desc":
-                    uzytkownikIQ = uzytkownikIQ.OrderByDescending(u => u.Login);
-                    break;
-                case "Poziom":
-                    uzytkownikIQ = uzytkownikIQ.OrderBy(u => u.PoziomUzytkownika.Nazwa);
-                    break;
-                case "Poziom_desc":
-                    uzytkownikIQ = uzytkownikIQ.OrderByDescending(u => u.PoziomUzytkownika.Nazwa);
-                    break;
-                case "Imie":
-                    uzytkownikIQ = uzytkownikIQ.OrderBy(u => u.Imie);
-                    break;
-                case "Imie_desc":
-                    uzytkownikIQ = uzytkownikIQ.OrderByDescending(u => u.Imie);
-                    break;
-                default:
-                    uzytkownikIQ = uzytkownikIQ.OrderBy(u => u.Nazwisko);
-                    break;
-            }
+                "Nazwisko_desc" => uzytkownikIQ.OrderByDescending(u => u.Nazwisko),
+                "Login" => uzytkownikIQ.OrderBy(u => u.Login),
+                "Login_desc" => uzytkownikIQ.OrderByDescending(u => u.Login),
+                "Poziom" => uzytkownikIQ.OrderBy(u => u.PoziomUzytkownika.Nazwa),
+                "Poziom_desc" => uzytkownikIQ.OrderByDescending(u => u.PoziomUzytkownika.Nazwa),
+                "Imie" => uzytkownikIQ.OrderBy(u => u.Imie),
+                "Imie_desc" => uzytkownikIQ.OrderByDescending(u => u.Imie),
+                _ => uzytkownikIQ.OrderBy(u => u.Nazwisko),
+            };
 
             int pageSize = 10;
             Uzytkownik = await PaginatedList<Uzytkownik>.CreateAsync(

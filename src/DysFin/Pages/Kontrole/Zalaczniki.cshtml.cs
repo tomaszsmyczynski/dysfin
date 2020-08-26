@@ -48,6 +48,7 @@ namespace DysFin.Pages.Kontrole
             }
 
             ViewData["KontrolaId"] = id;
+            ViewData["Title"] = "Kontrola zewnętrzna - nowy załącznik";
             return Page();
         }
 
@@ -177,6 +178,7 @@ namespace DysFin.Pages.Kontrole
                     ModelState.AddModelError("Plik.FormFile", "Plik jest większy niż dozwolone 8MB.");
 
                     ViewData["KontrolaId"] = Plik.KontrolaId;
+                    ViewData["Title"] = "Kontrola zewnętrzna - nowy załącznik";
                     return Page();
                 }
             }

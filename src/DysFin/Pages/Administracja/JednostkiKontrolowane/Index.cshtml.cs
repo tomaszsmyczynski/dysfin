@@ -93,28 +93,15 @@ namespace DysFin.Pages.Administracja.JednostkiKontrolowane
                 jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.Where(j => j.Nazwa.Contains(searchString));
             }
 
-            switch (sortOrder)
+            jednostkaKontrolowanaIQ = sortOrder switch
             {
-                case "Nazwa_desc":
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderByDescending(j => j.Nazwa);
-                    break;
-                case "Symbol":
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderBy(j => j.Symbol);
-                    break;
-                case "Symbol_desc":
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderByDescending(j => j.Symbol);
-                    break;
-                case "Proces":
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderBy(j => j.Proces.Kod);
-                    break;
-                case "Proces_desc":
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderByDescending(j => j.Proces.Kod);
-                    break;
-                default:
-                    jednostkaKontrolowanaIQ = jednostkaKontrolowanaIQ.OrderBy(j => j.Nazwa);
-                    break;
-            }
-
+                "Nazwa_desc" => jednostkaKontrolowanaIQ.OrderByDescending(j => j.Nazwa),
+                "Symbol" => jednostkaKontrolowanaIQ.OrderBy(j => j.Symbol),
+                "Symbol_desc" => jednostkaKontrolowanaIQ.OrderByDescending(j => j.Symbol),
+                "Proces" => jednostkaKontrolowanaIQ.OrderBy(j => j.Proces.Kod),
+                "Proces_desc" => jednostkaKontrolowanaIQ.OrderByDescending(j => j.Proces.Kod),
+                _ => jednostkaKontrolowanaIQ.OrderBy(j => j.Nazwa),
+            };
             int pageSize = 15;
             JednostkaKontrolowana = await PaginatedList<JednostkaKontrolowana>.CreateAsync(
                 jednostkaKontrolowanaIQ.AsNoTracking().Include(j => j.Proces).Include(k => k.KomorkaMerytoryczna), pageIndex ?? 1, pageSize);
@@ -146,7 +133,7 @@ namespace DysFin.Pages.Administracja.JednostkiKontrolowane
 
             stream.Position = 0;
 
-            string excelName = $"{nameof(JednostkiKontrolowane)}-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            string excelName = $"{nameof(JednostkiKontrolowane)}-{DateTime.Now:yyyyMMddHHmmssfff}.xlsx";
 
             Log
                 .ForContext("UserId", int.Parse(User.Claims.FirstOrDefault(u => u.Type.EndsWith("nameidentifier")).Value))

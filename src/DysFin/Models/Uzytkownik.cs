@@ -28,10 +28,10 @@ namespace DysFin.Models
         /// <summary>
         /// Poziom użytkownika.
         /// </summary>
+        [Display(Name = "Poziom")]
         public int PoziomUzytkownikaId { get; set; }
 
-        [ForeignKey("PoziomUzytkownikaId")]
-        [Display(Name = "Poziom")]
+        [ForeignKey("PoziomUzytkownikaId"), Display(Name = "Poziom")]
         public SlownikPoziomUzytkownika? PoziomUzytkownika { get; set; }
 
         /// <summary>
@@ -80,18 +80,18 @@ namespace DysFin.Models
         /// <summary>
         /// Opcjonalny identyfikator przynależności do jednostki kontrolowanej.
         /// </summary>
+        [Display(Name = "Jednostka")]
         public int? JednostkaId { get; set; }
 
         [ForeignKey("JednostkaId")]
-        [Display(Name = "Jednostka")]
         public JednostkaKontrolowana? Jednostka { get; set; }
 
         /// <summary>
         /// Opcjonalny identyfikator przynależności do kontrolowanej komórki.
         /// </summary>
+        [Display(Name = "Komórka kontrolowana")]
         public int? KomorkaId { get; set; }
 
-        [Display(Name = "Komórka kontrolowana")]
         public Komorka? Komorka { get; set; }
     }
 }

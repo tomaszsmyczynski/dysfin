@@ -5027,6 +5027,8 @@ module.exports = function(Chart) {
 			hiddenIframe.setAttribute('class', hiddenIframeClass);
 		}
 
+		hiddenIframe.title = 'Wykres';
+
 		// Set the style
 		hiddenIframe.style.width = '100%';
 		hiddenIframe.style.display = 'block';

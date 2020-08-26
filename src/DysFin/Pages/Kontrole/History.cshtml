@@ -44,16 +44,15 @@
                         </dl>
                         @if (wpis.KontrolaPrzed != null && wpis.KontrolaPo != null)
                         {
-                            <table class="table history">
+                            <table class="table history table-style-2">
                                 <thead>
                                     <tr>
-                                        <td>Pole</td>
-                                        <td>Przed</td>
-                                        <td>Po</td>
+                                        <th>Pole</th>
+                                        <th>Przed</th>
+                                        <th>Po</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <tr>
                                         <td>
                                             @Html.DisplayNameFor(model => wpis.KontrolaPrzed.Kontroler)
@@ -180,10 +179,24 @@
                                             @Html.DisplayNameFor(model => wpis.KontrolaPrzed.SprawyKadrowe)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.SprawyKadrowe)
+                                            @if (wpis.KontrolaPrzed.SprawyKadrowe)
+                                            {
+                                                <i class="fa fa-check-square"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-square-o"></i>
+                                            }
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.SprawyKadrowe)
+                                            @if (wpis.KontrolaPo.SprawyKadrowe)
+                                            {
+                                                <i class="fa fa-check-square"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-square-o"></i>
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
@@ -191,10 +204,24 @@
                                             @Html.DisplayNameFor(model => wpis.KontrolaPrzed.FunduszeUE)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => wpis.KontrolaPrzed.FunduszeUE)
+                                            @if (wpis.KontrolaPrzed.FunduszeUE)
+                                            {
+                                                <i class="fa fa-check-square"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-square-o"></i>
+                                            }
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => wpis.KontrolaPo.FunduszeUE)
+                                            @if (wpis.KontrolaPo.FunduszeUE)
+                                            {
+                                                <i class="fa fa-check-square"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-square-o"></i>
+                                            }
                                         </td>
                                     </tr>
                                 </tbody>
@@ -202,12 +229,12 @@
                         }
                         @if (wpis.NieprawidlowoscPrzed != null && wpis.NieprawidlowoscPo != null)
                         {
-                            <table class="table history">
+                            <table class="table history table-style-2">
                                 <thead>
                                     <tr>
-                                        <td>Pole</td>
-                                        <td>Przed</td>
-                                        <td>Po</td>
+                                        <th>Pole</th>
+                                        <th>Przed</th>
+                                        <th>Po</th>
                                     </tr>
                                 </thead>
                                 <tbody>

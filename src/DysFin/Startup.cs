@@ -56,6 +56,11 @@ namespace DysFin
                     options.Conventions.AuthorizePage("/Index");
                     options.Conventions.AuthorizeFolder("/Kontrole");
                     options.Conventions.AuthorizeFolder("/Administracja", "Admin");
+                })
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+                        _ => "Pole jest wymagane.");
                 });
 
             services.AddDbContext<DysFinContext>(options =>

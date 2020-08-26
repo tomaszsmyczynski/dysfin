@@ -59,7 +59,7 @@ namespace DysFin.Pages.Kontrole
 
             if (Kontrola.StatusId == 40 || Kontrola.StatusId == 41)
             {
-                return RedirectToPage("./Index", new { closed = "Kontrola jest w trybie tylko do odczytu." });
+                return RedirectToPage("./Index");
             }
 
             if (Kontrola.StatusId == 17 || Kontrola.StatusId == 43)

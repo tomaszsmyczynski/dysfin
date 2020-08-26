@@ -73,7 +73,6 @@ namespace DysFin
         /// <returns><see cref="IHostBuilder"/></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseWindowsService()
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

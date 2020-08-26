@@ -43,10 +43,7 @@ $('#AddKomorka').click(function () {
     $.ajax({
         url: '/Kontrole/Create?handler=AddKomorka&index=' + i,
         success: function (data) {
-            $('#Komorki > tbody').append(data);
-        },
-        error: function (a, b, c) {
-            console.log(a, b, c);
+            $('#Komorki').append(data);
         }
     });
     $.ajax({
@@ -67,7 +64,7 @@ $('#AddKomorka').click(function () {
     }
 });
 $('#RemoveKomorka').on('click', function () {
-    $('#Komorki tr:last').remove();
+    $('#Komorki .thingRow:last').remove();
     if ($('.thingRow').length == 0) {
         $('#RemoveKomorka').prop("disabled", true);
     }
@@ -124,14 +121,3 @@ $(function () {
     });
     return false;
 });
-
-function getCSS(prop, fromClass) {
-
-    var $inspector = $("<div>").css('display', 'none').addClass(fromClass);
-    $("body").append($inspector); // add to DOM, in order to read the CSS property
-    try {
-        return $inspector.css(prop);
-    } finally {
-        $inspector.remove(); // and remove from DOM
-    }
-};

@@ -22,7 +22,7 @@ namespace DysFin.Models
         /// <summary>
         /// Kod procesu głównego realizowanego przez jednostkę kontrolowaną.
         /// </summary>
-        [Display(Name = "Kod procesu głównego")]
+        [Display(Name = "Proces")]
         public int ProcesId { get; set; }
 
         [ForeignKey("ProcesId")]

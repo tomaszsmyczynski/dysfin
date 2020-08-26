@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
+    <meta name="description" content="Rejestr zawierający informacje o kontrolach zewnętrznych" />
     <meta name="robots" content="all" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RKZ</title>
@@ -27,7 +27,18 @@
     <script src="~/js/jquery-migrate.min.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function getCSS(prop, fromClass) {
+
+            var $inspector = $("<div>").css('display', 'none').addClass(fromClass);
+            $("body").append($inspector); // add to DOM, in order to read the CSS property
+            try {
+                return $inspector.css(prop);
+            } finally {
+                $inspector.remove(); // and remove from DOM
+            }
+        };
+    </script>
 </head>
 <body class="body-gray body-header-2 theme-color-3">
     <div id="wrap">
@@ -37,8 +48,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <a class="h2-logo" href="#">
-                                <img class="img-responsive" src="~/img/logo-2.png" alt="" style="height: 49px" />
+                            <a class="h2-logo">
+                                <img class="img-responsive" src="~/img/logo-2.png" alt="Logo" style="height: 49px" />
                             </a>
                             <h1 class="page-title">
                                 Rejestr kontroli zewnętrznych
@@ -79,25 +90,9 @@
         @RenderBody()
     </div>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="row footer-bottom">
-                <div class="col-md-6 col-md-push-6">
-                    <ul class="footer-menu-2 list-unstyled">
-                        @*<li><a href="#">Kariera</a></li>*@
-                        <li><a asp-area="" asp-page="/Privacy">Polityka prywatności</a></li>
-                        @*<li><a href="#">Mapa strony</a></li>
-                            <li><a href="#">Dostępność</a></li>
-                            <li><a href="#">Nota prawna</a></li>*@
-                    </ul>
-                </div>
-                <div class="clearfix visible-sm visible-xs"></div>
-                <div class="col-md-6 col-md-pull-6">
-                    <p class="copyright">Tomasz Smyczyński, wersja @typeof(Program).Assembly.GetName().Version.ToString(3) @hostingEnv.EnvironmentName &copy; @DateTime.Now.Year  Wszystkie prawa zastrzeżone.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <partial name="_FooterPartial" />
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

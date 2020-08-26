@@ -81,21 +81,13 @@ namespace DysFin.Pages.Administracja.KomorkiKontrolowane
                 komorkaIQ = komorkaIQ.Where(k => k.Nazwa.Contains(searchString));
             }
 
-            switch (sortOrder)
+            komorkaIQ = sortOrder switch
             {
-                case "Nazwa_desc":
-                    komorkaIQ = komorkaIQ.OrderByDescending(k => k.Nazwa);
-                    break;
-                case "Symbol":
-                    komorkaIQ = komorkaIQ.OrderBy(k => k.Symbol);
-                    break;
-                case "Symbol_desc":
-                    komorkaIQ = komorkaIQ.OrderByDescending(k => k.Symbol);
-                    break;
-                default:
-                    komorkaIQ = komorkaIQ.OrderBy(k => k.Nazwa);
-                    break;
-            }
+                "Nazwa_desc" => komorkaIQ.OrderByDescending(k => k.Nazwa),
+                "Symbol" => komorkaIQ.OrderBy(k => k.Symbol),
+                "Symbol_desc" => komorkaIQ.OrderByDescending(k => k.Symbol),
+                _ => komorkaIQ.OrderBy(k => k.Nazwa),
+            };
 
             int pageSize = 10;
             Komorka = await PaginatedList<Komorka>.CreateAsync(
@@ -125,7 +117,7 @@ namespace DysFin.Pages.Administracja.KomorkiKontrolowane
 
             stream.Position = 0;
 
-            string excelName = $"{nameof(KomorkiKontrolowane)}-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            string excelName = $"{nameof(KomorkiKontrolowane)}-{DateTime.Now:yyyyMMddHHmmssfff}.xlsx";
 
             Log
                 .ForContext("UserId", int.Parse(User.Claims.FirstOrDefault(u => u.Type.EndsWith("nameidentifier")).Value))

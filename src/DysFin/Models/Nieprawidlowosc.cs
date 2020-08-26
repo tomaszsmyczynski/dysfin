@@ -60,7 +60,8 @@ namespace DysFin.Models
         /// </summary>
         public int KontrolaId { get; set; }
 
-        public Kontrola Kontrola { get; set; }
+        [ForeignKey("KontrolaId")]
+        public Kontrola? Kontrola { get; set; }
 
         /// <summary>
         /// Indeks.

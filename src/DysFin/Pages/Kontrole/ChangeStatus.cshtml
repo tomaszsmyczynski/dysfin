@@ -27,7 +27,7 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-row row">
                                     <div class="col-sm-4 col-md-4">
-                                        <label class="input-label">Status</label>
+                                        <label asp-for="NewStatusId" class="input-label">Status</label>
                                     </div>
                                     <div class="col-sm-8 col-md-8 col-lg-8">
                                         <select asp-for="NewStatusId" asp-items="ViewBag.StatusId" class="text-input input-xs"></select>
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="form-row row">
                                     <div class="col-sm-4 col-md-4">
-                                        <label class="input-label">Uwagi Biura Kontroli</label>
+                                        <label asp-for="UwagiKW" class="input-label">Uwagi Biura Kontroli</label>
                                     </div>
                                     <div class="col-sm-8 col-md-8 col-lg-8">
                                         <textarea asp-for="UwagiKW" class="text-input"></textarea>

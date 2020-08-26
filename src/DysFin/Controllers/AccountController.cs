@@ -16,7 +16,7 @@ namespace DysFin.Controllers
         /// Wylogowuje użytkownika z aplikacji.
         /// </summary>
         /// <returns>Przekierowuje do strony z informacją o wylogowaniu.</returns>
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -29,7 +29,7 @@
                                 <div class="col-md-8">
                                     <div class="form-row row">
                                         <div class="col-sm-4 col-md-4">
-                                            <label asp-for="Kontrola.TypKontroli" class="input-label"></label>
+                                            <label asp-for="Kontrola.TypKontroliId" class="input-label"></label>
                                         </div>
                                         <div class="col-sm-8 col-md-8 col-lg-8">
                                             <select asp-for="Kontrola.TypKontroliId" class="text-input input-long" asp-items="ViewBag.TypKontroliId"></select>
@@ -39,7 +39,7 @@
                                     <div class="jednostka" id="jednostka">
                                         <div class="form-row row">
                                             <div class="col-sm-4 col-md-4">
-                                                <label asp-for="Kontrola.JednostkaKontrolowana" class="input-label"></label>
+                                                <label asp-for="Kontrola.JednostkaKontrolowanaId" class="input-label"></label>
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-8">
                                                 <select asp-for="Kontrola.JednostkaKontrolowanaId" class="text-input input-long" asp-items="ViewBag.JednostkaKontrolowanaId"></select>
@@ -51,7 +51,7 @@
                                     <div class="urzad" id="urzad">
                                         <div class="form-row row">
                                             <div class="col-sm-4 col-md-4">
-                                                <label asp-for="Kontrola.KomorkaWiodaca" class="input-label"></label>
+                                                <label asp-for="Kontrola.KomorkaWiodacaId" class="input-label"></label>
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-8">
                                                 <select asp-for="Kontrola.KomorkaWiodacaId" class="text-input input-long" asp-items="ViewBag.KomorkaWiodacaId"></select>
@@ -69,22 +69,20 @@
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-sm-4 col-md-4">
-                                                <label asp-for="Kontrola.KomorkiUczestniczace" class="input-label"></label>
+                                                <p class="input-label">@Html.DisplayNameFor(model => model.Kontrola.KomorkiUczestniczace)</p>
                                                 <button class="btn btn-primary" type="button" id="AddKomorka">Dodaj kolejną komórkę</button>
                                                 <button disabled class="btn btn-primary" type="button" id="RemoveKomorka">Usuń ostatnią komórkę</button>
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-8">
-                                                <table id="Komorki" class="table table-style-2">
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
+                                                <ul id="Komorki" class="table table-style-2">
+                                                </ul>
                                                 <span asp-validation-for="Kontrola.KomorkiUczestniczace" class="text-danger"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row row">
                                         <div class="col-sm-4 col-md-4">
-                                            <label asp-for="Kontrola.JednostkaKontrolujaca" class="input-label"></label>
+                                            <label asp-for="Kontrola.JednostkaKontrolujacaId" class="input-label"></label>
                                         </div>
                                         <div class="col-sm-8 col-md-8 col-lg-8">
                                             <select asp-for="Kontrola.JednostkaKontrolujacaId" class="text-input input-long" asp-items="ViewBag.JednostkaKontrolujacaId"></select>
@@ -198,7 +196,7 @@
                                     </div>
                                     <div class="form-row row">
                                         <div class="col-sm-4 col-md-4">
-                                            <label asp-for="Kontrola.Status" class="input-label"></label>
+                                            <label asp-for="Kontrola.StatusId" class="input-label"></label>
                                         </div>
                                         <div class="col-sm-8 col-md-8 col-lg-8">
                                             <select asp-for="Kontrola.StatusId" asp-items="ViewBag.StatusId" class="text-input input-xs"></select>

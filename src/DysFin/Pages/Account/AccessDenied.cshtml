@@ -2,7 +2,7 @@
 @model AccessDeniedModel
 @{
     Layout = "_LayoutLogin";
-    ViewData["Title"] = "Odmowa dostepu";
+    ViewData["Title"] = "Odmowa dostępu";
 }
 
 <div class="col-admin-login-right col-md-8 col-sm-7">
@@ -10,14 +10,11 @@
     <div class="valign-table">
         <div class="valign-cell">
 
-            <h2>@ViewData["Title"]</h2>
+            <h1>@ViewData["Title"]</h1>
 
             <p class="bg-danger">
                 Nie masz dostępu do tego zasobu.
             </p>
-
-            <div class="al-copy-xs visible-xs">&copy; @DateTime.Now.Year Urząd m.st. Warszawy. Wszystkie prawa zastrzeżone.</div>
-
         </div>
     </div>
 </div><!-- .col-admin-login-right -->

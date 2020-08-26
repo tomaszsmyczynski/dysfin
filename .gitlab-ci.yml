@@ -1,20 +1,41 @@
+# This file is a template, and might need editing before it works on your project.
+# The following script will work for any project that can be built from command line by msbuild
+# It uses powershell shell executor, so you need to add the following line to your config.toml file
+# (located in gitlab-runner.exe directory):
+#   shell = "powershell"
+#
+# The script is composed of 3 stages: build, test and deploy.  
+#
+# The build stage restores NuGet packages and uses msbuild to build the exe and msi
+# One major issue you'll find is that you can't build msi projects from command line
+# if you use vdproj.  There are workarounds building msi via devenv, but they rarely work
+# The best solution is migrating your vdproj projects to WiX, as it can be build directly 
+# by msbuild.
+#
+# The test stage runs nunit from command line against Test project inside your solution
+# It also saves the resulting TestResult.xml file
+#
+# The deploy stage copies the exe and msi from build stage to a network drive
+# You need to have the network drive mapped as Local System user for gitlab-runner service to see it
+# The best way to persist the mapping is via a scheduled task (see: https://stackoverflow.com/a/7867064/1288473),
+# running the following batch command: net use P: \\x.x.x.x\Projects /u:your_user your_pass /persistent:yes
 
+image: microsoft/dotnet:3.1.1
 
-image: microsoft/dotnet:3.0.1
-
+# place project specific paths in variables to make the rest of the script more generic
 variables:
   DEPLOY_FOLDER: $STAGING_SHARE
 
 stages:
   - build
 #  - test
-#  - deploy
+  - deploy
 before_script:
 
 build:
   stage: build
   tags:
-    - develop
+    - staging
   script:
     - 'cd src'
     - 'dotnet restore'
@@ -25,40 +46,43 @@ build:
 #  tags:
 #    - develop
 #  script:
-#    - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"' 
+#    - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"' # running NUnit tests
 #  artifacts:
-#   when: always 
-#    expire_in: 1 week #
+#   when: always # save test results even when the task fails
+#    expire_in: 1 week # save gitlab server space, we copy the files we need to deploy folder later on
 #    paths:
-#      - '.\TestResult.xml' 
+#      - '.\TestResult.xml' # saving NUnit results to copy to deploy folder
 #  dependencies:
 #    - build_job
 
-#deploy_staging:
- # stage: deploy
-#  tags:
- #   - develop
- # artifacts:
- #   expire_in: 1 week
- #   paths:
- #     - publish/
- # script:
+deploy_staging:
+  stage: deploy
+  tags:
+    - staging
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - publish/
+  script:
     - 'cd src'
     - 'dotnet publish -c "Debug" -o "../publish" "DysFin\DysFin.Web.csproj"'
-    
-    # W:\local\Projects\DysFin\Builds\Rev1.0.0.1 - First commit\
-    #- '$commitSubject = git log -1 --pretty=%s'
-    - '$deployFolder = $($env:DEPLOY_FOLDER) + "\Services\$CI_PROJECT_NAME"'# + "\" + $($env:CI_BUILD_TAG) + " - " + $commitSubject + "\"'
-
-    - 'cd "../publish"'
+    # Compose a folder for each release based on commit tag.
+    # Assuming your tag is Rev1.0.0.1, and your last commit message is 'First commit'
+    # the artifact files will be copied to:
+    # W:\WRU\Projects\DysFin\Builds\Rev1.0.0.1 - First commit\
+    - '$commitSubject = git log -1 --pretty=%s'
+    - 'echo $CI_PROJECT_NAME'
+    - '$deployFolder = $($env:DEPLOY_FOLDER) + "\$CI_PROJECT_NAME"'
+    # xcopy takes care of recursively creating required folders
     #- 'net use F: "$deployFolder"'
-    #- 'powershell -Command "Get-Service -ComputerName local04 -Name DysfinService02 | Stop-Service -Force"'
-    - 'xcopy /y /s ".\*" "$deployFolder"'
-    #- 'powershell -Command "Get-Service -ComputerName local04 -Name DysfinService02 | Start-Service"'
- # environment:
- #   name: staging
-#    url: https://$CI_PROJECT_NAME.test.local
- # only:
- #   - branches
- # except:
- #   - master
+    - 'echo $deployFolder'
+    - 'powershell -File ../staging.ps1'
+    - 'xcopy /d /y /s "..\publish\*" "$deployFolder"'
+    - 'powershell -File ../staging2.ps1'
+  environment:
+    name: staging
+    url: https://$CI_PROJECT_NAME.pl
+  only:
+    - branches
+  except:
+    - master

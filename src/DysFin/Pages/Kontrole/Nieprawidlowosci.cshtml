@@ -12,64 +12,66 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-xs-12 page-content">
             <div class="box-section">
-                <h3 class="bs-header">Nieprawidłowości lub zalecenia</h3>
+                <h3 class="bs-header">Dane</h3>
                 <form method="post">
                     <div class="bs-content">
                         <div class="form-section">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="table-responsive">
-                                <table id="Nieprawidlowosci" class="table table-style-2">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 30%">
-                                                @Html.DisplayNameFor(model => model.Nieprawidlowosc.Opis)
-                                            </th>
-                                            <th style="width: 25%">
-                                                @Html.DisplayNameFor(model => model.Nieprawidlowosc.OpisPlanowanychDzialan)
-                                            </th>
-                                            <th style="width: 10%; min-width: 205px">
-                                                @Html.DisplayNameFor(model => model.Nieprawidlowosc.PlanowanaData)
-                                            </th>
-                                            <th style="width: 25%">
-                                                @Html.DisplayNameFor(model => model.Nieprawidlowosc.OpisZrealizowanychDzialan)
-                                            </th>
-                                            <th style="width: 10%; min-width: 200px">
-                                                @Html.DisplayNameFor(model => model.Nieprawidlowosc.DataZakonczeniaDzialan)
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <textarea asp-for="Nieprawidlowosc.Opis" class="text-input"></textarea>
-                                                <span asp-validation-for="Nieprawidlowosc.Opis" class="text-danger"></span>
-                                            </td>
-                                            <td>
-                                                <textarea asp-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-input"></textarea>
-                                                <span asp-validation-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-danger"></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" asp-for="Nieprawidlowosc.PlanowanaData" asp-format="{0:d}" class="text-input input-xxs datepicker" />
-                                                <span asp-validation-for="Nieprawidlowosc.PlanowanaData" class="text-danger"></span>
-                                            </td>
-                                            <td>
-                                                <textarea asp-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-input"></textarea>
-                                                <span asp-validation-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-danger"></span>
-                                            </td>
-                                            <td>
-                                                <input type="text" asp-for="Nieprawidlowosc.DataZakonczeniaDzialan" asp-format="{0:d}" class="text-input input-xxs datepicker" />
-                                                <span asp-validation-for="Nieprawidlowosc.DataZakonczeniaDzialan" class="text-danger"></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-md-8">
+                                    <input type="hidden" asp-for="Nieprawidlowosc.KontrolaId" value="@ViewBag.KontrolaId" />
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.Opis" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.Opis" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.Opis" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.OpisPlanowanychDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.PlanowanaData" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Nieprawidlowosc.PlanowanaData" asp-format="{0:d}" class="text-input input-xxs datepicker" />
+                                            <span asp-validation-for="Nieprawidlowosc.PlanowanaData" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <textarea asp-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-input"></textarea>
+                                            <span asp-validation-for="Nieprawidlowosc.OpisZrealizowanychDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-row row">
+                                        <div class="col-sm-4 col-md-4">
+                                            <label asp-for="Nieprawidlowosc.DataZakonczeniaDzialan" class="input-label"></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <input type="text" asp-for="Nieprawidlowosc.DataZakonczeniaDzialan" asp-format="{0:d}" class="text-input input-xxs datepicker" />
+                                            <span asp-validation-for="Nieprawidlowosc.DataZakonczeniaDzialan" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <input hidden asp-for="KontrolaId" value="@ViewBag.KontrolaId" />
                     </div>
                     <div class="bs-footer">
                         <div class="form-row">

@@ -130,10 +130,8 @@ namespace DysFin.Pages.Kontrole
         /// <param name="status">Aktualny filtr statusu.</param>
         /// <param name="komorka">Aktualny filtr komórki.</param>
         /// <returns>Strona z listą kontroli.</returns>
-        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex, int? jednostkaKontrolujaca, int? jednostkaKontrolowana, int? status, int? komorka, string closed)
+        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex, int? jednostkaKontrolujaca, int? jednostkaKontrolowana, int? status, int? komorka)
         {
-            ViewData["Closed"] = closed;
-
             IQueryable<Kontrola> kontrolaIQ = from k in _context.Kontrola
                                               select k;
 
@@ -298,7 +296,7 @@ namespace DysFin.Pages.Kontrole
                 "Status_desc" => kontrolaIQ.OrderByDescending(k => k.Status.Nazwa),
                 _ => kontrolaIQ.OrderBy(k => k.Id),
             };
-            int pageSize = 15;
+            int pageSize = 10;
             Kontrola = await PaginatedList<Kontrola>.CreateAsync(
                 kontrolaIQ
                 .Include(k => k.JednostkaKontrolowana)
